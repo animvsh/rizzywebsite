@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizzy Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background: url('img/background.png') repeat-y;
+            background-size: cover;
+            animation: moveBackgroundUp 30s linear infinite;
+        }
+
+        @keyframes moveBackgroundUp {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 -200%;
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .logo {
+            width: 150px;
+            margin: 0 auto;
+            position: absolute;
+            top: 1%; /* Moved logo further upwards */
+            left: 50%;
+            transform: translateX(-50%);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .headline {
+            margin-top: 150px; /* Added more space between logo and headline */
+            width: 80%; /* Responsive width */
+            max-width: 800px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 2.5rem;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .join-btn {
+            margin-top: 50px;
+            cursor: pointer;
+            width: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            animation: bobbing 2s infinite;
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .join-btn:hover {
+            transform: scale(0.8); /* Shrink on hover */
+        }
+
+        .join-btn:active {
+            animation: wobble 0.5s;
+        }
+
+        @keyframes bobbing {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes wobble {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .question {
+            width: 120px;
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darkens everything */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .modal-content {
+            margin: 0 auto;
+            width: 60%;
+            max-width: 700px;
+            background-color: black; /* Modal content is black */
+            border-radius: 10px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .headline {
+                width: 90%;
+                font-size: 2rem;
+            }
+
+            .join-btn {
+                width: 180px;
+            }
+
+            .logo {
+                width: 120px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .headline {
+                font-size: 1.5rem;
+            }
+
+            .join-btn {
+                width: 160px;
+            }
+
+            .logo {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="img/logo.png" alt="Rizzy Logo" class="logo">
+    <img src="img/headline.png" alt="Headline" class="headline">
+    
+    <!-- Join Button with link -->
+    <a href="https://forms.gle/u4nvtXGYEb2JPJ838" target="_blank">
+        <img src="img/join.png" alt="Join Button" class="join-btn">
+    </a>
+    
+    <img src="img/question.png" alt="Question Button" class="question" id="openModalBtn">
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close" id="closeModalBtn">&times;</span>
+    <div class="modal-content">
+        <img src="img/tutorial.png" alt="Tutorial">
+    </div>
+</div>
+
+<script>
+    // Get modal element
+    var modal = document.getElementById("myModal");
+    // Get open modal button
+    var openModalBtn = document.getElementById("openModalBtn");
+    // Get close button
+    var closeModalBtn = document.getElementById("closeModalBtn");
+
+    // Listen for open click
+    openModalBtn.addEventListener('click', function() {
+        modal.style.display = "flex";
+    });
+
+    // Listen for close click
+    closeModalBtn.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    // Listen for outside click to close modal
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
